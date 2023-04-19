@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PostPositionComponent } from './components/post-position/post-position.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PostPositionComponent
   ],
   imports: [
     BrowserModule,

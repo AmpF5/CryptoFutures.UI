@@ -35,9 +35,6 @@ export class AppComponent {
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
     
   }
-  public updateBalance() {
-    this.balanceService.putBalance(1000).subscribe((result: Balance) => (this.balance = result));
-  }
   // onAddData() {
   //   this.balanceService.addData().subscribe(
   //     (response: any) => console.log(response),

@@ -17,11 +17,16 @@ import { Observable } from 'rxjs/internal/Observable';
             //     'Content-Type' : 'application/json'
         // });
         const balance: Balance = {value: 100};
-        return this.http.post<Balance>(`${environment.apiUrl}/${this.url}`, balance);
+        return this.http.post<Balance>(`${environment.apiUrl}/${this.url}`, balance, options);
     }
 
     putBalance(value: number) : Observable<Balance> {
         const options = { withCredentials: true };
         return this.http.put<Balance>(`${environment.apiUrl}/${this.url}?amount=${value}`, value, options);
+    }
+
+    getBalance() : Observable<Balance> {
+        const options = { withCredentials: true };
+        return this.http.get<Balance>(`${environment.apiUrl}/${this.url}`, options)
     }
   }
