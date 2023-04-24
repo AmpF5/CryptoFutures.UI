@@ -1,0 +1,20 @@
+<div *ngIf="position">
+    <!-- <h2>{{ position.symbol }}</h2> -->
+    <div>
+        Symbol:
+        <input [(ngModel)]="position.symbol" placeholder="symbol" />
+    </div>
+    <div>
+        Quanity:
+        <input type="number" [(ngModel)]="position.quanity" placeholder="quanity" />
+    </div>
+    <div>
+        OrderType:
+        <input type="number" [(ngModel)]="position.orderType" placeholder="order type" />
+    </div>
+    <div>
+        Leverage:
+        <input type="number" [(ngModel)]="position.leverage" placeholder="leverage" />
+    </div>
+    <button (click)="postPosition(position)">Open</button>
+</div>
