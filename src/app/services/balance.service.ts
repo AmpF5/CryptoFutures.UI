@@ -13,9 +13,6 @@ import { Observable } from 'rxjs/internal/Observable';
     
     postBalance() : Observable<Balance> {
         const options = { withCredentials: true };
-        // const headers = new HttpHeaders({
-            //     'Content-Type' : 'application/json'
-        // });
         const balance: Balance = {value: 100};
         return this.http.post<Balance>(`${environment.apiUrl}/${this.url}`, balance, options);
     }

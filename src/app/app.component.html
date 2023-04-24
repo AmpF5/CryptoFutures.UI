@@ -1,4 +1,27 @@
+<button (click)="initNewPosition()">Open Position</button>
 <p> Balance</p>
-<tr *ng></tr>
 <button (click)="refreshData()"> Refresh Data</button>
 <button (click)="updateBalance()"> Add Balance</button>
+<table>
+    <thead>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Quanity</th>
+        <th>Position Size</th>
+        <th>Total</th>
+        <th>Order Type</th>
+        <th>Leverage</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let position of futuresPosition">
+            <td>{{position.symbol}}</td>
+            <td>{{position.price}}</td>
+            <td>{{position.quanity}}</td>
+            <td>{{position.positionSize}}</td>
+            <td>{{position.total}}</td>
+            <td>{{position.orderType}}</td>
+            <td>{{position.leverage}}</td>
+    </tbody>
+</table>
+
+<app-post-position [position]="positionToCreate"></app-post-position>

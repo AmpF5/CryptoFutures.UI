@@ -19,6 +19,7 @@ export class AppComponent {
   futuresPosition: FuturePosition[] = [];
   balance: Balance;
   private dataSubscription: Subscription;
+  positionToCreate: FuturePosition;
 
   constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService) {}
 
@@ -33,7 +34,14 @@ export class AppComponent {
   
   public refreshData() {
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
-    
+  }
+
+  public updateBalance() {
+    this.balanceService.putBalance(1000).subscribe((result: Balance) => (this.balance = result))
+  }
+
+  public initNewPosition() {
+    this.positionToCreate = new FuturePosition
   }
   // onAddData() {
   //   this.balanceService.addData().subscribe(

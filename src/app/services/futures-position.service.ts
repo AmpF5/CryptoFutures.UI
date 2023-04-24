@@ -13,7 +13,12 @@ export class FuturesPositionService {
   constructor(private http: HttpClient ) { }
 
   public getFuturesPositions() : Observable<FuturePosition[]>{
-    return this.http.get<FuturePosition[]>(`${environment.apiUrl}/${this.url}`);
-
-  } 
+    const options = { withCredentials: true };
+    return this.http.get<FuturePosition[]>(`${environment.apiUrl}/${this.url}/position/all`, options);
+  }
+  
+  public postFuturePosition(position: FuturePosition) : Observable<FuturePosition[]>{
+    const options = { withCredentials: true };
+    return this.http.post<FuturePosition[]>(`${environment.apiUrl}/${this.url}`, position, options);
+  }
 }
