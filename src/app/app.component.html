@@ -21,6 +21,8 @@
             <td>{{position.total}}</td>
             <td>{{position.orderType}}</td>
             <td>{{position.leverage}}</td>
+            <td>{{position.id}}</td>
+            <button (click)="closePosition(position.id)"> Close </button>
     </tbody>
 </table>
 

@@ -21,4 +21,10 @@ export class FuturesPositionService {
     const options = { withCredentials: true };
     return this.http.post<FuturePosition[]>(`${environment.apiUrl}/${this.url}`, position, options);
   }
+
+  public closeFuturesPosition(id: number) : Observable<FuturePosition>{
+    const options = { withCredentials: true };
+    console.log(`${environment.apiUrl}/${this.url}/position/${id}`)
+    return this.http.delete<FuturePosition>(`${environment.apiUrl}/${this.url}/position/${id}`, options)
+  }
 }
