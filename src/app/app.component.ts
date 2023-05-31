@@ -4,11 +4,13 @@ import { FuturesPositionService } from './services/futures-position.service';
 import { BalanceService } from './services/balance.service';
 import { Balance } from './models/balance';
 import { Subscription } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template:`
   <h1> Balance {{balance}}</h1>
+  <app-post-position (positionsUpdated)="handlePositionsUpdated($event)"></app-post-position>
 
   `,
   templateUrl: './app.component.html',
@@ -22,10 +24,11 @@ export class AppComponent {
   positionToCreate: FuturePosition;
   id: number;
 
-  constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService) {}
+  constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit()  {
-    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+    // this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+    this.getFuturesPositions();
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }
 
@@ -45,7 +48,12 @@ export class AppComponent {
     this.positionToCreate = new FuturePosition();
   }
 
-  public closePosition(id:number) {
-    this.futurePositionService.closeFuturesPosition(id).subscribe()
+  getFuturesPositions() {
+    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
   }
+
+  public closePosition(id:number) {
+    this.futurePositionService.closeFuturesPosition(id).subscribe();
+  }
+  
 }
