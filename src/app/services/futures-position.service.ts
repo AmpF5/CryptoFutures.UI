@@ -14,6 +14,7 @@ export class FuturesPositionService {
 
   public getFuturesPositions() : Observable<FuturePosition[]>{
     const options = { withCredentials: true };
+    console.log(`${environment.apiUrl}/${this.url}/position/all`);
     return this.http.get<FuturePosition[]>(`${environment.apiUrl}/${this.url}/position/all`, options);
   }
   

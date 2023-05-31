@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { FuturePosition } from 'src/app/models/futures-position';
 import { FuturesPositionService } from '../../services/futures-position.service';
 
@@ -19,8 +19,18 @@ export class PositonsTableComponent implements OnInit {
     this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
   }
 
-  public closePosition(id:number) {
-    this.futurePositionService.closeFuturesPosition(id).subscribe();
-    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+  // public closePosition(id:number) {
+  //   this.futurePositionService.closeFuturesPosition(id).subscribe();
+  //   this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+  // }
+  public closePosition(id: number) {
+    this.futurePositionService.closeFuturesPosition(id)
+      .pipe(
+        switchMap(() => this.futurePositionService.getFuturesPositions())
+      )
+      .subscribe((result: FuturePosition[]) => {
+        this.futuresPosition = result;
+      });
   }
+  
 }

@@ -45,15 +45,15 @@ export class AppComponent {
   }
 
   public initNewPosition() {
-    this.positionToCreate = new FuturePosition();
+    let p = this.positionToCreate = new FuturePosition();
   }
 
   getFuturesPositions() {
     this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
   }
 
-  public closePosition(id:number) {
-    this.futurePositionService.closeFuturesPosition(id).subscribe();
-  }
+  // public async closePosition(id:number) {
+  //   this.futurePositionService.closeFuturesPosition(id).subscribe();
+  // }
   
 }
