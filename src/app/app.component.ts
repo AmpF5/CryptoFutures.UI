@@ -3,16 +3,12 @@ import { FuturePosition } from './models/futures-position';
 import { FuturesPositionService } from './services/futures-position.service';
 import { BalanceService } from './services/balance.service';
 import { Balance } from './models/balance';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template:`
-  <!-- <h1> TST </h1> -->
-  <!-- <h1> Balance {{balance}}</h1> -->
-  <!-- <app-positons-table  [futuresPosition]="futuresPosition" ></app-positons-table>
-  <app-post-position (positionsUpdated)="updatePositionList($event)"></app-post-position> -->
   `,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -28,7 +24,6 @@ export class AppComponent {
   constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit()  {
-    // this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
     this.getFuturesPositions();
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }

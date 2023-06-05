@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { Subscription, switchMap } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { switchMap } from 'rxjs';
 import { FuturePosition } from 'src/app/models/futures-position';
 import { FuturesPositionService } from '../../services/futures-position.service';
-
 
 @Component({
   selector: 'app-positons-table',
@@ -10,7 +9,6 @@ import { FuturesPositionService } from '../../services/futures-position.service'
   styleUrls: ['./positons-table.component.css']
 })
 export class PositonsTableComponent implements OnInit {
-  // futuresPosition: FuturePosition[] = [];
   positionToCreate: FuturePosition;
   id: number;
   @Input() futuresPosition: FuturePosition[] = [];
