@@ -12,18 +12,18 @@ export class FuturesPositionService {
 
   constructor(private http: HttpClient ) { }
 
-  public getFuturesPositions() : Observable<FuturePosition[]>{
+  getFuturesPositions() : Observable<FuturePosition[]>{
     const options = { withCredentials: true };
     console.log(`${environment.apiUrl}/${this.url}/position/all`);
     return this.http.get<FuturePosition[]>(`${environment.apiUrl}/${this.url}/position/all`, options);
   }
   
-  public postFuturePosition(position: FuturePosition) : Observable<FuturePosition[]>{
+  postFuturePosition(position: FuturePosition) : Observable<FuturePosition>{
     const options = { withCredentials: true };
-    return this.http.post<FuturePosition[]>(`${environment.apiUrl}/${this.url}`, position, options);
+    return this.http.post<FuturePosition>(`${environment.apiUrl}/${this.url}`, position, options);
   }
 
-  public closeFuturesPosition(id: number) : Observable<FuturePosition>{
+  closeFuturesPosition(id: number) : Observable<FuturePosition>{
     const options = { withCredentials: true };
     console.log(`${environment.apiUrl}/${this.url}/position/${id}`)
     return this.http.delete<FuturePosition>(`${environment.apiUrl}/${this.url}/position/${id}`, options)

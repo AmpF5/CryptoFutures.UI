@@ -1,37 +1,13 @@
-<!-- <table>
-    <thead>
-        <th>Symbol</th>
-        <th>Price</th>
-        <th>Quanity</th>
-        <th>Position Size</th>
-        <th>Total</th>
-        <th>Order Type</th>
-        <th>Leverage</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let position of futuresPosition">
-            <td>{{position.symbol}}</td>
-            <td>{{position.price}}</td>
-            <td>{{position.quanity}}</td>
-            <td>{{position.positionSize}}</td>
-            <td>{{position.total}}</td>
-            <td>{{position.orderType}}</td>
-            <td>{{position.leverage}}</td>
-            <td>{{position.id}}</td>
-            <button (click)="closePosition(position.id)"> Close </button>
-    </tbody>
-</table>
- -->
 <ul>
-    <li *ngFor="let position of futuresPosition">
-        {{position.symbol}}
-        {{position.price}}
-        {{position.quanity}}
-        {{position.positionSize}}
-        {{position.total}}
-        {{position.orderType}}
-        {{position.leverage}}
-        {{position.id}}
-        <button (click)="closePosition(position.id)"> Close </button>
-    </li>
+  <li *ngFor="let position of futuresPosition">
+    Symbol: {{ position.symbol }}
+    Price: {{ position.price }}
+    Quantity: {{ position.quanity }}
+    Position Size: {{ position.positionSize }}
+    Total: {{ position.total }}
+    Order Type: {{ position.orderType }}
+    Leverage: {{ position.leverage }}
+    ID: {{ position.id }}
+    <button (click)="closePosition(position.id)">Close</button>
+  </li>
 </ul>

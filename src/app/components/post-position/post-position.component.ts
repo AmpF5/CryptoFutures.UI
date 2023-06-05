@@ -13,24 +13,20 @@ export class PostPositionComponent implements OnInit {
   @Output() positionsUpdated = new EventEmitter<FuturePosition[]>();
 
 
-  constructor(private futuresPositionService: FuturesPositionService) { }
+  constructor(private futuresPositionService: FuturesPositionService) {}
 
   ngOnInit(): void {
 
   }
 
   postPosition(position: FuturePosition) {
-    this.futuresPositionService.postFuturePosition(position).subscribe((positions: FuturePosition[]) => this.positionsUpdated.emit(positions));
+    this.futuresPositionService.postFuturePosition(position).pipe(
+      switchMap(() => this.futuresPositionService.getFuturesPositions())
+    ).subscribe((positions: FuturePosition[]) => {
+      this.positionsUpdated.emit(positions);
+      console.log('positionsUpdated event emitted:', position);
+    });
   }
-
-  // public postPosition(position: FuturePosition) {
-  //   this.futuresPositionService.postFuturePosition(position)
-  //     .pipe(
-  //       switchMap(() => this.futuresPositionService.getFuturesPositions())
-  //     )
-  //     .subscribe((result: FuturePosition[]) => {
-  //       this.futuresPosition = result;
-  //     });
-  // }
   
+
 }

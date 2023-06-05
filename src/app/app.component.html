@@ -2,5 +2,8 @@
 <p> Balance: {{balance}}</p>
 <button (click)="refreshData()"> Refresh Data</button>
 <button (click)="updateBalance()"> Add Balance</button>
-<app-positons-table ></app-positons-table>
-<app-post-position [position]="positionToCreate"></app-post-position>
+
+<app-positons-table [futuresPosition]="futuresPosition"></app-positons-table>
+<app-post-position 
+(positionsUpdated)="updatePositionList($event)"
+[position]="positionToCreate"></app-post-position>

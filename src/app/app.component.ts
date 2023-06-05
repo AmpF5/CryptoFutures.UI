@@ -3,15 +3,16 @@ import { FuturePosition } from './models/futures-position';
 import { FuturesPositionService } from './services/futures-position.service';
 import { BalanceService } from './services/balance.service';
 import { Balance } from './models/balance';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template:`
-  <h1> Balance {{balance}}</h1>
-  <app-post-position (positionsUpdated)="handlePositionsUpdated($event)"></app-post-position>
-
+  <!-- <h1> TST </h1> -->
+  <!-- <h1> Balance {{balance}}</h1> -->
+  <!-- <app-positons-table  [futuresPosition]="futuresPosition" ></app-positons-table>
+  <app-post-position (positionsUpdated)="updatePositionList($event)"></app-post-position> -->
   `,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -36,24 +37,30 @@ export class AppComponent {
     this.dataSubscription.unsubscribe();
   }
   
-  public refreshData() {
+   refreshData() {
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }
 
-  public updateBalance() {
+   updateBalance() {
     this.balanceService.putBalance(1000).subscribe((result: Balance) => (this.balance = result))
   }
 
-  public initNewPosition() {
-    let p = this.positionToCreate = new FuturePosition();
+   initNewPosition() {
+    this.positionToCreate = new FuturePosition();
+  }
+
+  updatePositionList(positions: FuturePosition[] | FuturePosition) {
+    if (Array.isArray(positions)) {
+      this.futuresPosition = positions;
+    } else {
+      this.futuresPosition.push(positions);
+    }
+    console.log('futuresPosition updated:', this.futuresPosition);
   }
 
   getFuturesPositions() {
-    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => {
+      this.futuresPosition = result;
+    });
   }
-
-  // public async closePosition(id:number) {
-  //   this.futurePositionService.closeFuturesPosition(id).subscribe();
-  // }
-  
 }

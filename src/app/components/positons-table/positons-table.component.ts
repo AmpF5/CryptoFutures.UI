@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Subscription, switchMap } from 'rxjs';
 import { FuturePosition } from 'src/app/models/futures-position';
 import { FuturesPositionService } from '../../services/futures-position.service';
@@ -10,20 +10,17 @@ import { FuturesPositionService } from '../../services/futures-position.service'
   styleUrls: ['./positons-table.component.css']
 })
 export class PositonsTableComponent implements OnInit {
-  futuresPosition: FuturePosition[] = [];
+  // futuresPosition: FuturePosition[] = [];
   positionToCreate: FuturePosition;
   id: number;
-  constructor(private futurePositionService: FuturesPositionService, private cdr: ChangeDetectorRef) { }
+  @Input() futuresPosition: FuturePosition[] = [];
+  constructor(private futurePositionService: FuturesPositionService) { }
 
   ngOnInit(): void {
     this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
   }
 
-  // public closePosition(id:number) {
-  //   this.futurePositionService.closeFuturesPosition(id).subscribe();
-  //   this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
-  // }
-  public closePosition(id: number) {
+  closePosition(id: number) {
     this.futurePositionService.closeFuturesPosition(id)
       .pipe(
         switchMap(() => this.futurePositionService.getFuturesPositions())
