@@ -24,9 +24,10 @@ th, td {
   background-color: #2D4263;
 }
 
-.table-container tbody tr:last-of-type {
+
+/* .table-container tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
-}
+} */
 
 tr:nth-child(even) {
   background-color: #2e2e2e;
@@ -38,6 +39,16 @@ tbody tr:hover {
 
 td {
   width: 80px;
+}
+
+.table-container tbody td.long {
+  font-weight: bold;
+  color: green;
+}
+
+.table-container tbody td.short {
+  font-weight: bold;
+  color: red;
 }
 
 .button-2 {

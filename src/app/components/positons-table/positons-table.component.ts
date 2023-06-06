@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { switchMap } from 'rxjs';
-import { FuturePosition } from 'src/app/models/futures-position';
+import { FuturePosition, OrderType } from 'src/app/models/futures-position';
 import { FuturesPositionService } from '../../services/futures-position.service';
 export interface PeriodicElement {
   name: string;
@@ -35,6 +35,21 @@ export class PositonsTableComponent implements OnInit {
       .subscribe((result: FuturePosition[]) => {
         this.futuresPosition = result;
       });
+  }
+
+  getPositionType(position: FuturePosition) {
+    if (position.orderType === OrderType.Short) {
+      return "SHORT";
+    }
+    return "LONG";
+  }
+
+  isLong(position: any): boolean {
+    return position.orderType === OrderType.Long;
+  }
+  
+  isShort(position: any): boolean {
+    return position.orderType === OrderType.Short;
   }
   
 }

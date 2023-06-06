@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { switchMap } from 'rxjs';
-import { FuturePosition } from 'src/app/models/futures-position';
+import { FuturePosition, OrderType } from 'src/app/models/futures-position';
 import { FuturesPositionService } from 'src/app/services/futures-position.service';
 
 @Component({
