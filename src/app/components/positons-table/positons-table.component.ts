@@ -2,15 +2,24 @@ import { Component, OnInit, Input } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { FuturePosition } from 'src/app/models/futures-position';
 import { FuturesPositionService } from '../../services/futures-position.service';
-
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 @Component({
   selector: 'app-positons-table',
   templateUrl: './positons-table.component.html',
-  styleUrls: ['./positons-table.component.css']
+  styleUrls: ['./positons-table.component.css'],
+  
 })
+
 export class PositonsTableComponent implements OnInit {
   positionToCreate: FuturePosition;
   id: number;
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  clickedRows = new Set<PeriodicElement>();
   @Input() futuresPosition: FuturePosition[] = [];
   constructor(private futurePositionService: FuturesPositionService) { }
 
