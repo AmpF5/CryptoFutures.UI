@@ -32,25 +32,24 @@ export class AppComponent {
     this.dataSubscription.unsubscribe();
   }
   
-   refreshData() {
+  refreshData() {
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }
-
-   updateBalance() {
+  
+  updateBalance() {
     this.balanceService.putBalance(1000).subscribe((result: Balance) => (this.balance = result))
   }
 
-   initNewPosition() {
+
+  initNewPosition() {
     this.positionToCreate = new FuturePosition();
   }
-
   updatePositionList(positions: FuturePosition[] | FuturePosition) {
     if (Array.isArray(positions)) {
       this.futuresPosition = positions;
     } else {
       this.futuresPosition.push(positions);
     }
-    console.log('futuresPosition updated:', this.futuresPosition);
   }
 
   getFuturesPositions() {

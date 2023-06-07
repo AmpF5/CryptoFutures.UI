@@ -20,11 +20,11 @@ export class PostPositionComponent implements OnInit {
   }
 
   postPosition(position: FuturePosition) {
-    this.futuresPositionService.postFuturePosition(position).pipe(
+    this.futuresPositionService.postFuturePosition(position)
+    .pipe(
       switchMap(() => this.futuresPositionService.getFuturesPositions())
     ).subscribe((positions: FuturePosition[]) => {
-      this.positionsUpdated.emit(positions);
-      console.log('positionsUpdated event emitted:', position);
+      this.positionsUpdated.emit(positions) ;
     });
   }
   
