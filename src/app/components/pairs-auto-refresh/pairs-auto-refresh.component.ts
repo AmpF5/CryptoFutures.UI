@@ -17,6 +17,7 @@ export class PairsAutoRefreshComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.getPairPrice();
     this.startAutoRefresh();
   }
 
@@ -32,6 +33,10 @@ export class PairsAutoRefreshComponent implements OnInit {
         console.log('API call successful:', response);
       }
     )
+  }
+
+  getPairPrice() : void {
+    this.getPair().subscribe((result: any) => this.price = result.bitcoin.usd);
   }
 
   private getPair() : Observable<number> {
