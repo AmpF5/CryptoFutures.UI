@@ -1,16 +1,3 @@
-<!-- <ul>
-  <li *ngFor="let position of futuresPosition">
-    Symbol: {{ position.symbol }}
-    Price: {{ position.price }}
-    Quantity: {{ position.quanity }}
-    Position Size: {{ position.positionSize }}
-    Total: {{ position.total }}
-    Order Type: {{ position.orderType }}
-    Leverage: {{ position.leverage }}
-    ID: {{ position.id }}
-    <button (click)="closePosition(position.id)">Close</button>
-  </li>
-</ul> -->
 <div class="table-container">
   <table>
     <thead>
@@ -22,6 +9,7 @@
         <th>Total</th>
         <th>Order Type</th>
         <th>Leverage</th>
+        <th>Profit</th>
         <th>id</th>
       </tr>
     </thead>
@@ -34,6 +22,7 @@
         <td>{{position.total | currency:'USD':'symbol':'1.0-0' }}</td>
         <td [ngClass]="{'long': isLong(position), 'short': isShort(position)}">{{getPositionType(position)}}</td>
         <td>{{position.leverage}}</td>
+        <td>{{getProfitFromPair(position)}}</td>
         <td>{{position.id}}</td>
         <button class="button-2" (click)="closePosition(position.id)">Close</button>
       </tr>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, interval, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { PairsService } from 'src/app/services/pairs.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class PairsAutoRefreshComponent implements OnInit {
   private apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
   
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private pairsService: PairsService) { }
 
   ngOnInit(): void {
     this.getPairPrice();
@@ -24,7 +25,7 @@ export class PairsAutoRefreshComponent implements OnInit {
   private startAutoRefresh(): void {
     interval(this.refreshInterval)
     .pipe(
-      switchMap(() => this.getPair())
+      switchMap(() => this.pairsService.getPair())
     )
     .subscribe(
       (response: any) => {
@@ -34,13 +35,10 @@ export class PairsAutoRefreshComponent implements OnInit {
       }
     )
   }
-
+  
   getPairPrice() : void {
-    this.getPair().subscribe((result: any) => this.price = result.bitcoin.usd);
+    this.pairsService.getPair().subscribe((result: any) => this.price = result.bitcoin.usd);
   }
-
-  private getPair() : Observable<number> {
-    return this.http.get<number>(this.apiUrl);
-  }
-
+  
+  
 }
