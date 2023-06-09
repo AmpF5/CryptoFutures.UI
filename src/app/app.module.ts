@@ -7,11 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostPositionComponent } from './components/post-position/post-position.component';
 import { FormsModule } from '@angular/forms';
+import { PositonsTableComponent } from './components/positons-table/positons-table.component';
+import { PairsAutoRefreshComponent } from './components/pairs-auto-refresh/pairs-auto-refresh.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostPositionComponent
+    PostPositionComponent,
+    PositonsTableComponent,
+    PairsAutoRefreshComponent
   ],
   imports: [
     BrowserModule,

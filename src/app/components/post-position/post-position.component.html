@@ -1,12 +1,11 @@
 <div *ngIf="position">
-    <!-- <h2>{{ position.symbol }}</h2> -->
     <div>
         Symbol:
         <input [(ngModel)]="position.symbol" placeholder="symbol" />
     </div>
     <div>
         Quanity:
-        <input type="number" [(ngModel)]="position.quanity" placeholder="quanity" />
+        <input type="number" [(ngModel)]="position.positionSize" placeholder="position size" />
     </div>
     <div>
         OrderType:

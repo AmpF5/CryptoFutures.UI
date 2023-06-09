@@ -4,12 +4,11 @@ import { FuturesPositionService } from './services/futures-position.service';
 import { BalanceService } from './services/balance.service';
 import { Balance } from './models/balance';
 import { Subscription } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template:`
-  <h1> Balance {{balance}}</h1>
-
   `,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -20,11 +19,12 @@ export class AppComponent {
   balance: Balance;
   private dataSubscription: Subscription;
   positionToCreate: FuturePosition;
+  id: number;
 
-  constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService) {}
+  constructor(private futurePositionService: FuturesPositionService, private balanceService: BalanceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit()  {
-    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => (this.futuresPosition = result));
+    this.getFuturesPositions();
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }
 
@@ -32,22 +32,29 @@ export class AppComponent {
     this.dataSubscription.unsubscribe();
   }
   
-  public refreshData() {
+  refreshData() {
     this.balanceService.postBalance().subscribe((result: Balance) => (this.balance = result));
   }
-
-  public updateBalance() {
+  
+  updateBalance() {
     this.balanceService.putBalance(1000).subscribe((result: Balance) => (this.balance = result))
   }
 
-  public initNewPosition() {
-    this.positionToCreate = new FuturePosition
+
+  initNewPosition() {
+    this.positionToCreate = new FuturePosition();
   }
-  // onAddData() {
-  //   this.balanceService.addData().subscribe(
-  //     (response: any) => console.log(response),
-  //     (error: any) => console.log(error)
-  //   );
-  // }
-  
+  updatePositionList(positions: FuturePosition[] | FuturePosition) {
+    if (Array.isArray(positions)) {
+      this.futuresPosition = positions;
+    } else {
+      this.futuresPosition.push(positions);
+    }
+  }
+
+  getFuturesPositions() {
+    this.futurePositionService.getFuturesPositions().subscribe((result: FuturePosition[]) => {
+      this.futuresPosition = result;
+    });
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FuturePosition } from 'src/app/models/futures-position';
+import { switchMap } from 'rxjs';
+import { FuturePosition, OrderType } from 'src/app/models/futures-position';
 import { FuturesPositionService } from 'src/app/services/futures-position.service';
 
 @Component({
@@ -12,13 +13,20 @@ export class PostPositionComponent implements OnInit {
   @Output() positionsUpdated = new EventEmitter<FuturePosition[]>();
 
 
-  constructor(private futuresPositionService: FuturesPositionService) { }
+  constructor(private futuresPositionService: FuturesPositionService) {}
 
   ngOnInit(): void {
 
   }
 
   postPosition(position: FuturePosition) {
-    this.futuresPositionService.postFuturePosition(position).subscribe((positions: FuturePosition[]) => this.positionsUpdated.emit(positions));
+    this.futuresPositionService.postFuturePosition(position)
+    .pipe(
+      switchMap(() => this.futuresPositionService.getFuturesPositions())
+    ).subscribe((positions: FuturePosition[]) => {
+      this.positionsUpdated.emit(positions) ;
+    });
   }
+  
+
 }
